@@ -4,7 +4,7 @@ python:
 
 install:
   - pip install flake8
-  - pip install -r forms/requirements.txt
+  - pip install -r simple_django/forms/requirements.txt
 
 script:
   - flake8
