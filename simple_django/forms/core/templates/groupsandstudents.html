@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+            <div class="col-md-8">
+                <form method="get">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <a class="btn btn-primary" href="{% url 'main:home' %}">Main</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <br><br>
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <table class="table">
+                        {% for group in groups %}
+                            <tr>
+                                <th>Group</th>
+                            </tr>
+                            <tr>
+                                <td>{{group.name}}</td>
+                            </tr>
+                            <th>students</th>
+                            {% for students in group.students.all %}
+                                    <tr>
+                                        <td>{{students}}</td>
+                                    </tr>
+                            {% endfor %}
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+{% endblock content %}

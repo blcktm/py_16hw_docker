@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  web: &python
+    build: .
+#    build:
+#      dockerfile: Dockerfile
+    ports:
+      - 8080:8000
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      - db
+      - rabbitmq
+    volumes:
+      - .:/app
+
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=simple
+      - POSTGRES_USER=simple
+      - POSTGRES_DB=simple
+
+  rabbitmq:
+    image: rabbitmq:3.8
+
+  celery_worker:
+    <<: *python
+    command: celery -A forms worker -l info -B
+    ports: []
+    depends_on:
+      - rabbitmq
+      - db

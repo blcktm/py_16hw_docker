@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+            <div class="col-md-12">
+                <form method="get">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <a class="btn btn-primary" href="{% url 'main:home' %}">MAIN</a>
+                        </div>
+                        <div class="col-md-2">
+                            <a class="btn btn-primary" href="{% url 'main:allteachers' %}">All_TEACHERS</a>
+                        </div>
+                        <div class="col-md-2">
+                            <a class="btn btn-primary" href="{% url 'main:registration' %}">Add_TeacherUser</a>
+                        </div>
+                        <div class="col-md-2">
+                            <a class="btn btn-primary" href="{% url 'main:create-group' %}">Add_Group</a>
+                        </div>
+                        <div class="col-md-2">
+                            <a class="btn btn-primary" href="{% url 'main:create-student' %}">Create_Student</a>
+                        </div>
+                        <div class="col-md-2">
+                            <a class="btn btn-primary" href="{% url 'main:students' %}">Edit_STUDENTS</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <br><br>
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <table class="table">
+                        <tr>
+                            <th>Group</th>
+                            <th>Teacher</th>
+                        </tr>
+                        {% for group in groups %}
+                            <tr>
+                                <td>{{group.name}}</td>
+                                <td>{{group.teacher}}</td>
+                                <td>
+                                    <a class="btn btn-primary" href="{% url 'main:update-group' group.id %}">Edit</a>
+                                    <a class="btn btn-primary" href="{% url 'main:delete-group' group.id %}">Remove</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+{% endblock content %}

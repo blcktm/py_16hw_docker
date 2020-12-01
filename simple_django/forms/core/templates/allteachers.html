@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+            <div class="col-md-8">
+                <form method="get">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <a class="btn btn-primary" href="{% url 'main:teachers' %}">Back</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <br><br>
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <table class="table">
+                        <tr>
+                            <th>Teacher</th>
+                        </tr>
+                        {% for teacher in allteachers %}
+                            <tr>
+                                <td>{{ teacher }}</td>
+                                <td>
+                                    <a class="btn btn-primary" href="{% url 'main:update-teacher' teacher.username %}">Edit</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+{% endblock content %}
