@@ -1,6 +1,6 @@
 from django import template
-from core.models import MyUser
-import random
+# from core.models import MyUser
+# import random
 
 register = template.Library()
 
