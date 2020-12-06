@@ -3,3 +3,4 @@ ALLOWED_HOSTS = [
 ]
 
 DEBUG = False
+STATIC_ROOT = '/home/group2/www/py_16hw_docker/static'
