@@ -10,7 +10,7 @@ services:
     command: bash -c "python manage.py collectstatic --noinput && python manage.py migrate && gunicorn -b=0.0.0.0:8000 forms.wsgi"
     depends_on:
       - db
-      - rabbitmq
+#      - rabbitmq
     volumes:
 #      - .:/app
       - /home/group2/www/py_16hw_docker/simple_django/forms/static_files:/static
@@ -23,13 +23,13 @@ services:
     env_file:
       - .env
 
-  rabbitmq:
-    image: rabbitmq:3.8
-
-  celery_worker:
-    <<: *python
-    command: celery -A forms worker -l info -B
-    ports: []
-    depends_on:
-      - rabbitmq
-      - db
+#  rabbitmq:
+#    image: rabbitmq:3.8
+#
+#  celery_worker:
+#    <<: *python
+#    command: celery -A forms worker -l info -B
+#    ports: []
+#    depends_on:
+#      - rabbitmq
+#      - db
