@@ -6,6 +6,8 @@ WORKDIR /app
 
 COPY . .
 
+RUN cp server_settings.py local_settings.py
+
 RUN pip install -r requirements.txt
 
 #CMD python manage.py runserver 0.0.0.0:8000

@@ -7,19 +7,21 @@ services:
 #      dockerfile: Dockerfile
     ports:
       - 8080:8000
-    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "python manage.py collectstatic --no-input && python manage.py migrate && gunicorn -b=0.0.0.0:8000 forms.wsgi"
     depends_on:
       - db
       - rabbitmq
     volumes:
       - .:/app
+      - /home/group2/www/py_16hw_docker/simple_django/forms/static_files:/static
+    .env_file:
+      - .env
+
 
   db:
     image: postgres
-    environment:
-      - POSTGRES_PASSWORD=simple
-      - POSTGRES_USER=simple
-      - POSTGRES_DB=simple
+    env_file:
+      - .env
 
   rabbitmq:
     image: rabbitmq:3.8
