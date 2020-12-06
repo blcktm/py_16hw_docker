@@ -3,4 +3,4 @@ ALLOWED_HOSTS = [
 ]
 
 DEBUG = False
-STATIC_ROOT = '/static_files'
+STATIC_ROOT = 'static_files'
