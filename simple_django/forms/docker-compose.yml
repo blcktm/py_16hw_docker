@@ -14,7 +14,7 @@ services:
     volumes:
       - .:/app
       - /home/group2/www/py_16hw_docker/simple_django/forms/static_files:/static
-    .env_file:
+    env_file:
       - .env
 
 
