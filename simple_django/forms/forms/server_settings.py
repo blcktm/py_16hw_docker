@@ -11,3 +11,4 @@ DATABASES = {
 }
 
 DEBUG = False
+STATIC_ROOT = 'static_files'

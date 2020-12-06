@@ -6,7 +6,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN cp server_settings.py local_settings.py
+RUN cp forms/server_settings.py forms/local_settings.py
 
 RUN pip install -r requirements.txt
 
