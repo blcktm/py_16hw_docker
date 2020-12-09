@@ -11,6 +11,7 @@ services:
     depends_on:
       - db
       - rabbitmq
+      - cache
     volumes:
 #      - .:/app
       - /home/group2/www/py_16hw_docker/simple_django/forms/static_files:/static
@@ -32,3 +33,11 @@ services:
     depends_on:
       - rabbitmq
       - db
+
+  cache:
+    image: memcached
+    ports:
+      - "11211:11211"
+    entrypoint:
+      - memcached
+      - -m 64

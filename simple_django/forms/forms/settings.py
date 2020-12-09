@@ -174,6 +174,13 @@ REST_FRAMEWORK = {
     ]
 }
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': 'cache:11211',
+    }
+}
+
 try:
     from .local_settings import *
 except ImportError:
