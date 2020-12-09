@@ -21,7 +21,7 @@ class IndexView(TemplateView):
     template_name = "index.html"
 
     def get_context_data(self, *args, **kwargs):
-        self.request.session['refresh_count'] = self.request.session.get('refresh_count', 0) + 1
+        self.request.session['refresh_count_index'] = self.request.session.get('refresh_count_index', 0) + 1
 
         context = super(IndexView, self).get_context_data(*args, **kwargs)
 
@@ -33,18 +33,46 @@ class IndexView(TemplateView):
         )
 
         teachers = get_user_model().objects.all()
-        context['count_words'] = self.request.GET.get('count_words', '0')
 
         context = {
             'settings': settings,
             'teachers': teachers,
             'groups': groups,
-            'count_words': context['count_words'],
+            'count_words': self.request.GET.get('count_words', '0'),
+            'refresh_count_index': self.request.session['refresh_count_index']
         }
-        # del self.request.session['refresh_count']
-        context['refresh_count'] = self.request.session['refresh_count']
 
         return context
+
+
+@method_decorator(cache_page(2 * 60), 'get')
+class StudentsView(TemplateView):
+    template_name = "students.html"
+
+    def get_context_data(self, **kwargs):
+        self.request.session['refresh_count_students'] = self.request.session.get('refresh_count_students', 0) + 1
+        students = Student.objects.all()
+        return {
+            'students': students,
+            'refresh_count_students': self.request.session['refresh_count_students']
+        }
+
+
+@method_decorator(cache_page(3 * 60), 'get')
+class TeachersView(TemplateView):
+    template_name = "teachers.html"
+
+    slug_field = "username"
+    slug_url_kwarg = "username"
+
+    def get_context_data(self, **kwargs):
+        self.request.session['refresh_count_teachers'] = self.request.session.get('refresh_count_teachers', 0) + 1
+        groups = Group.objects.all().values('id', 'name', 'teacher')
+
+        return {
+            'groups': groups,
+            'refresh_count_teachers': self.request.session['refresh_count_teachers']
+        }
 
 
 class ExportStudentList(View):
@@ -98,20 +126,6 @@ def successView(request):
     return HttpResponse('Success! Thank you for your message.')
 
 
-class TeachersView(TemplateView):
-    template_name = "teachers.html"
-
-    slug_field = "username"
-    slug_url_kwarg = "username"
-
-    def get_context_data(self, **kwargs):
-        groups = Group.objects.all().values('id', 'name', 'teacher')
-
-        return {
-            'groups': groups,
-        }
-
-
 class AllTeachersView(TemplateView):
     template_name = "allteachers.html"
 
@@ -119,16 +133,6 @@ class AllTeachersView(TemplateView):
         allteachers = get_user_model().objects.all()
         return {
             'allteachers': allteachers
-        }
-
-
-class StudentsView(TemplateView):
-    template_name = "students.html"
-
-    def get_context_data(self, **kwargs):
-        students = Student.objects.all()
-        return {
-            'students': students
         }
 
 

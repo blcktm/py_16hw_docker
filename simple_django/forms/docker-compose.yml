@@ -11,6 +11,7 @@ services:
     depends_on:
       - db
       - rabbitmq
+      - cache
     volumes:
       - .:/app
 
@@ -31,3 +32,11 @@ services:
     depends_on:
       - rabbitmq
       - db
+
+  cache:
+    image: memcached
+    ports:
+      - "11211:11211"
+    entrypoint:
+      - memcached
+      - -m 64
