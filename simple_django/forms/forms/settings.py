@@ -84,22 +84,22 @@ WSGI_APPLICATION = 'forms.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'simple',
-        'USER': 'simple',
-        'PASSWORD': 'simple',
-        'HOST': 'db',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'simple',
+#         'USER': 'simple',
+#         'PASSWORD': 'simple',
+#         'HOST': 'db',
+#     }
+# }
 
 
 # Password validation
@@ -183,4 +183,29 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated'
     ]
+}
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.file'
+SESSION_FILE_PATH = 'sessions'
+SESSION_COOKIE_NAME = 'cookie'
+# SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+# SESSION_COOKIE_AGE = 1
+
+# CACHES = {
+#     'default': {
+#         # 'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+#         # 'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+#         # 'LOCATION': 'my_cache_table',
+#         'LOCATION': 'django_cache',
+#         'TIMEOUT': 60,
+#         'OPTIONS': {
+#             'MAX_ENTRIES': 1000
+#         }
+# }
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
 }

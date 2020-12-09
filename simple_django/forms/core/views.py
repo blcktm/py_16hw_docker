@@ -12,12 +12,17 @@ from core.forms import GroupForm, StudentForm, ContactUS, RegistrationForm
 from core.models import Student, Group, get_user_model
 from core.tasks import send_mail_celery
 from django.conf import settings
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 
 
+@method_decorator(cache_page(1 * 60), 'get')
 class IndexView(TemplateView):
     template_name = "index.html"
 
     def get_context_data(self, *args, **kwargs):
+        self.request.session['refresh_count'] = self.request.session.get('refresh_count', 0) + 1
+
         context = super(IndexView, self).get_context_data(*args, **kwargs)
 
         groups = Group.objects.all().values('id', 'name', 'teacher').annotate(
@@ -30,12 +35,16 @@ class IndexView(TemplateView):
         teachers = get_user_model().objects.all()
         context['count_words'] = self.request.GET.get('count_words', '0')
 
-        return {
-                'settings': settings,
-                'teachers': teachers,
-                'groups': groups,
-                'count_words': context['count_words']
-            }
+        context = {
+            'settings': settings,
+            'teachers': teachers,
+            'groups': groups,
+            'count_words': context['count_words'],
+        }
+        # del self.request.session['refresh_count']
+        context['refresh_count'] = self.request.session['refresh_count']
+
+        return context
 
 
 class ExportStudentList(View):
