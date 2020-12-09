@@ -7,7 +7,7 @@ services:
 #      dockerfile: Dockerfile
     ports:
       - 8080:8000
-    command: bash -c "python manage.py collectstatic --noinput && python manage.py migrate && gunicorn -b=0.0.0.0:8000 forms.wsgi"
+    command: bash -c "python manage.py collectstatic --noinput && python manage.py migrate &&  gunicorn --workers=1 -b=0.0.0.0:8000 forms.wsgi"
     depends_on:
       - db
       - rabbitmq
