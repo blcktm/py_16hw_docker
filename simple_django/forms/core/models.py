@@ -83,5 +83,5 @@ def send_notify(instance, **kwargs):
     notify(instance)
 
 
-pre_save.connect(send_notify, sender=Student)
+# pre_save.connect(send_notify, sender=Student)
 pre_save.connect(send_notify, sender=MyUser)
