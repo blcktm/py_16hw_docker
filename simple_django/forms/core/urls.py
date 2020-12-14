@@ -22,4 +22,5 @@ urlpatterns = [
     path('registration/', RegistrationView.as_view(), name='registration'),
     path('groupsandstudents/<str:username>/', GroupsAndStudentsView.as_view(), name='groupsandstudents'),
     path('export', ExportStudentList.as_view(), name='export'),
+    path('js-crud/', JsView.as_view(), name='js-crud'),св
 ]
