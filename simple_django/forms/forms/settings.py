@@ -135,7 +135,7 @@ STATICFILES_DIRS = (
 LOGIN_URL = '/admin/login/'
 
 INTERNAL_IPS = [
-    '127.0.0.1',	
+    '127.0.0.1',
 ]
 
 NOT_LOGIN_REQUIRED_URLS = [
@@ -143,7 +143,7 @@ NOT_LOGIN_REQUIRED_URLS = [
 ]
 
 # Адрес где находится RabbitMQ
-#CELERY_BROKER_URL = 'amqp://localhost'
+# CELERY_BROKER_URL = 'amqp://localhost'
 CELERY_BROKER_URL = 'amqp://guest:guest@rabbitmq:5672/%2F'
 
 CELERY_BEAT_SCHEDULE = {
@@ -151,10 +151,10 @@ CELERY_BEAT_SCHEDULE = {
         'task': 'core.tasks.check_date',
         'schedule': timedelta(days=1)
     },
-    'get-currency': {
-        'task': 'core.tasks.store_currency',
-        'schedule': crontab(hour=0)
-    },
+    # 'get-currency': {
+    #     'task': 'core.tasks.store_currency',
+    #     'schedule': crontab(hour=0)
+    # },
     'token': {
         'task': 'core.tasks.token_generate',
         'schedule': crontab(hour=0)
@@ -169,9 +169,9 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
     ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated'
-    ]
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.IsAuthenticated'
+    # ]
 }
 
 CACHES = {

@@ -2,7 +2,7 @@ import os
 
 ALLOWED_HOSTS = [
      '127.0.0.1',
-#     '45.94.157.160'
+     # '45.94.157.160'
 ]
 
 DATABASES = {
