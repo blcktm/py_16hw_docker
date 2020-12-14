@@ -20,7 +20,7 @@ class JsView(TemplateView):
     template_name = 'js_template.html'
 
 
-@method_decorator(cache_page(1 * 60), 'get')
+@method_decorator(cache_page(5), 'get')
 class IndexView(TemplateView):
     template_name = "index.html"
 
@@ -49,7 +49,7 @@ class IndexView(TemplateView):
         return context
 
 
-@method_decorator(cache_page(2 * 60), 'get')
+@method_decorator(cache_page(10), 'get')
 class StudentsView(TemplateView):
     template_name = "students.html"
 
@@ -62,7 +62,7 @@ class StudentsView(TemplateView):
         }
 
 
-@method_decorator(cache_page(3 * 60), 'get')
+@method_decorator(cache_page(15), 'get')
 class TeachersView(TemplateView):
     template_name = "teachers.html"
 
