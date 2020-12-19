@@ -1,10 +1,10 @@
-{% extends "base.html" %}
-{% block content %}
-            <form role="form" method="post">{% csrf_token %}
+{# {% extends "base.html" %} #}
+{# {% block content %} #}
+            <form class="form" id="edit-student-form" role="form" method="post" action="{% url 'core:update-student' student_id=student.id %}">{% csrf_token %}
                 {{ form }}
                 <div class="form-group">
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                  <a class="btn btn-primary" href="{% url 'main:delete-student' student.id %}">Delete</a>
+<!--                  <button type="submit" class="btn btn-primary">Submit</button>-->
+<!--                  <a class="btn btn-primary" href="{% url 'main:delete-student' student.id %}">Delete</a>-->
                 </div>
             </form>
-{% endblock content %}
+{# {% endblock content %} #}

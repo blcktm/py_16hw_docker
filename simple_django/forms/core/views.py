@@ -1,7 +1,7 @@
 import csv
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.views.generic.base import TemplateView
-from django.views.generic import FormView, View
+from django.views.generic import FormView, View, ListView
 from django.contrib.auth.models import User
 from django.db.models import Avg, Max, Min, Count
 from django.urls.base import reverse_lazy
@@ -16,8 +16,35 @@ from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
 
 
-class JsView(TemplateView):
+# class JsView(TemplateView):
+#     template_name = 'js_template.html'
+@method_decorator(cache_page(10 * 60), 'get')
+class JsView(ListView):
     template_name = 'js_template.html'
+    model = Student
+    context_object_name = 'students'
+
+    def get_context_data(self, *args, **kwargs):
+        self.request.session['refresh_count_index'] = self.request.session.get('refresh_count_index', 0) + 1
+        context = super(JsView, self).get_context_data(*args, **kwargs)
+        context['form'] = StudentForm
+        context['refresh_count_index'] = self.request.session['refresh_count_index']
+        return context
+
+
+class UpdateFormAjax(UpdateView):
+    template_name = 'update_student.html'
+    model = Student
+    # success_url = '/'
+    form_class = StudentForm
+    context_object_name = 'student'
+
+
+class CreateFormAjax(CreateView):
+    template_name = 'create.html'
+    model = Student
+    form_class = StudentForm
+    # context_object_name = 'student'
 
 
 @method_decorator(cache_page(1 * 60), 'get')
@@ -180,7 +207,7 @@ class TeacherUpdateView(UpdateView):
 class StudentUpdateView(UpdateView):
     template_name = 'update_student.html'
 
-    success_url = reverse_lazy('main:students')
+    success_url = reverse_lazy('main:js-crud')  # reverse_lazy('main:students')
     model = Student
     form_class = StudentForm
     pk_url_kwarg = 'student_id'

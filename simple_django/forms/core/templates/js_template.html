@@ -1,15 +1,119 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block css %}
+<style>
+    .green {
+        background-color: green !important;
+    }
+</style>
+{% endblock css %}
+
 {% block js %}
-    <script src="{% static 'js/js_template.js' %}"></script>
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+<!--    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>-->
+
+<script src="{% static 'js/js_template.js' %}"></script>
+
 {% endblock js %}
 
 {% block content %}
-    <button class="btn btn-primary" id="load-students">Load Students</button>
-    <br>
-    <button class="btn btn-success" id="create-student-btn">Create Student</button>
-    <input type="text" id="student-name">
+<!--    <button class="btn btn-primary" id="load-students">Load Students</button>-->
+<!--    <br>-->
+<!--    <button class="btn btn-success" id="create-student-btn">Create Student</button>-->
+<!--    <input type="text" id="student-name">-->
 
-    <div id="student-list"></div>
+<!--    <div id="student-list"></div>-->
+
+<!--    <div id="red-rectangle" class="red-rectangle-class" style="width: 300px; height: 300px; background: red;">-->
+
+<!--    </div>-->
+
+<!--    <button class="btn btn-primary">Click me</button>-->
+<!--    <button class="btn btn-primary">Click me</button>-->
+<!--    <button class="btn btn-primary">Click me</button>-->
+<!--    <button class="btn btn-primary">Click me</button>-->
+<!--        <button class="btn btn-primary" id="add-button">Add more buttons</button>-->
+<!--        <div id="buttons">-->
+
+<!--        </div>-->
+    <h1>{{refresh_count_index}}</h1>
+    <button class="btn btn-primary create-btn">Create</button>
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>PHONE</th>
+            <th>FIRSTNAME</th>
+            <th>LASTNAME</th>
+            <th>AGE</th>
+
+        </tr>
+        {% for student in students %}
+        <tr>
+            <td>{{student.id}}</td>
+            <td>{{student.phone}}</td>
+            <td>{{student.first_name}}</td>
+            <td>{{student.last_name}}</td>
+            <td>{{student.age}}</td>
+            <td>
+                <button class="btn btn-danger del-btn" data-id="{{student.id}}">
+                    Del
+                </button>
+<!--                <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Edit</button>-->
+<!--                <button class="btn btn-primary" data-toggle="modal" data-target="#edit-modal">Edit</button>-->
+                <button class="btn btn-primary edit-btn" data-id="{{student.id}}">Edit</button>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class="modal" tabindex="-1" id="edit-modal">
+<!--    <div class="modal" tabindex="-1">-->
+      <div class="modal-dialog" style="max-width: 80%;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+<!--            <p>Modal body text goes here.</p>-->
+<!--              {% include 'create.html' %}-->
+<!--              forma-->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+<!--            <button type="button" class="btn btn-primary">Save changes</button>-->
+              <button type="button" class="btn btn-primary" id="save-update">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
 {% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

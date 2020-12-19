@@ -1,7 +1,7 @@
 from django.urls import path
 from core.views import IndexView, GroupsAndStudentsView, RegistrationView, contactView, successView, TeacherCreateView, \
     StudentCreateView, GroupCreateView, TeacherUpdateView, GroupUpdateView, StudentUpdateView, GroupDeleteView, \
-    StudentDeleteView, TeacherDeleteView, AllTeachersView, TeachersView, StudentsView, ExportStudentList, JsView
+    StudentDeleteView, TeacherDeleteView, AllTeachersView, TeachersView, StudentsView, ExportStudentList, JsView, UpdateFormAjax
 
 urlpatterns = [
     path('', IndexView.as_view(), name='home'),
@@ -22,5 +22,6 @@ urlpatterns = [
     path('registration/', RegistrationView.as_view(), name='registration'),
     path('groupsandstudents/<str:username>/', GroupsAndStudentsView.as_view(), name='groupsandstudents'),
     path('export', ExportStudentList.as_view(), name='export'),
-    path('js-crud/', JsView.as_view(), name='js-crud')
+    path('js-crud/', JsView.as_view(), name='js-crud'),
+    path('js-student-form/<int:pk>/', UpdateFormAjax.as_view())
 ]
