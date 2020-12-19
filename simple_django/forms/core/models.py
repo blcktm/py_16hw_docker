@@ -48,7 +48,6 @@ class Logger(models.Model):
 
 
 class Student(models.Model):
-    id = models.AutoField(primary_key=True)
     phone = models.CharField(max_length=255, verbose_name="Телефон", null=True)
     first_name = models.CharField(max_length=255, verbose_name="Имя")
     last_name = models.CharField(max_length=255, verbose_name="Фамилия", null=True)

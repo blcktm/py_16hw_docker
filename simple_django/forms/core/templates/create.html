@@ -1,10 +1,6 @@
 {# {% extends "base.html" %} #}
 {# {% block content %} #}
-<!--            <form role="form">{% csrf_token %}-->
             <form class="form" role="form" id="create-student-form" action="{% url 'core:create-student' %}">{% csrf_token %}
                 {{ form }}
-<!--                <div class="form-group">-->
-<!--&lt;!&ndash;                  <button type="submit" class="btn btn-primary">Submit</button>&ndash;&gt;-->
-<!--                </div>-->
             </form>
 {# {% endblock content %} #}

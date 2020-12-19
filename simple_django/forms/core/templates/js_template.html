@@ -14,29 +14,9 @@
 <!--    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>-->
 
 <script src="{% static 'js/js_template.js' %}"></script>
-
 {% endblock js %}
 
 {% block content %}
-<!--    <button class="btn btn-primary" id="load-students">Load Students</button>-->
-<!--    <br>-->
-<!--    <button class="btn btn-success" id="create-student-btn">Create Student</button>-->
-<!--    <input type="text" id="student-name">-->
-
-<!--    <div id="student-list"></div>-->
-
-<!--    <div id="red-rectangle" class="red-rectangle-class" style="width: 300px; height: 300px; background: red;">-->
-
-<!--    </div>-->
-
-<!--    <button class="btn btn-primary">Click me</button>-->
-<!--    <button class="btn btn-primary">Click me</button>-->
-<!--    <button class="btn btn-primary">Click me</button>-->
-<!--    <button class="btn btn-primary">Click me</button>-->
-<!--        <button class="btn btn-primary" id="add-button">Add more buttons</button>-->
-<!--        <div id="buttons">-->
-
-<!--        </div>-->
     <h1>{{refresh_count_index}}</h1>
     <button class="btn btn-primary create-btn">Create</button>
     <table class="table">
@@ -46,7 +26,6 @@
             <th>FIRSTNAME</th>
             <th>LASTNAME</th>
             <th>AGE</th>
-
         </tr>
         {% for student in students %}
         <tr>

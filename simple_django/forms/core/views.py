@@ -16,8 +16,6 @@ from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
 
 
-# class JsView(TemplateView):
-#     template_name = 'js_template.html'
 @method_decorator(cache_page(10 * 60), 'get')
 class JsView(ListView):
     template_name = 'js_template.html'
