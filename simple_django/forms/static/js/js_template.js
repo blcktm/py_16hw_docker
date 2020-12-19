@@ -47,7 +47,7 @@ $('#save-update').click(function (e){
      let studentBlock = $('<tr>');
      $('<td>').text(id).appendTo(studentBlock);
 
-      for (let i=data.length-2; i>-1; i--){
+      for (let i=data.length-2; i>=0; i--){
          studentBlock.append('<td>' + data[i].value + '</td>');
       };
 
