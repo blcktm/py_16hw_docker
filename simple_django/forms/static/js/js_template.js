@@ -57,10 +57,11 @@ $('#save-update').click(function (e){
        if (isNaN(idFromTbl)){
            function getId() {
                let idReturn;
-               jQuery.ajax({
-                   url: studentsApiHtml,
-                   success: function(html) {idReturn = html[0].id;},
-                   async:false
+               $.ajax({url: studentsApiHtml,
+                   type: 'GET',
+                   success: function (result) {
+                        idReturn = result[0].id;
+                   }, async: false
                });
                return idReturn;
            };
