@@ -1,6 +1,8 @@
+let studentsApiHtml = 'http://127.0.0.1:8000/api/v1/students/';
+
 $('body').on('click', '.del-btn', async function (e) {
    let id = $(this).data('id');
-   await fetch('http://127.0.0.1:8000/api/v1/students/'+ id +'/', {
+   await fetch(studentsApiHtml + id +'/', {
       method: 'DELETE'
    });
 
@@ -34,6 +36,7 @@ $('#save-update').click(function (e){
    data.reverse();
 
    if (form.attr('id') == EDIT) {
+
       let idstudent = form.attr('action').match(/\d+/)[0];
       let btn = $('body').find('[data-id=' + idstudent + ']')
       let fields = btn.closest('td').prevAll();
@@ -42,8 +45,29 @@ $('#save-update').click(function (e){
           fields[i].innerText = data[i].value;
       };
 
+      postFunc();
+
    } else if (form.attr('id') == CREATE) {
-     let id = (parseInt($('.table tr:last-child').children('td').first().text()) + 1);
+
+       let id;
+       let idFromTbl = (parseInt($('.table tr:last-child').children('td').first().text()) + 1);
+
+       postFunc();
+
+       if (isNaN(idFromTbl)){
+           function getId() {
+               let idReturn;
+               jQuery.ajax({
+                   url: studentsApiHtml,
+                   success: function(html) {idReturn = html[0].id;},
+                   async:false
+               });
+               return idReturn;
+           };
+           id = getId();
+       } else id = idFromTbl;
+
+
      let studentBlock = $('<tr>');
      $('<td>').text(id).appendTo(studentBlock);
 
@@ -67,7 +91,10 @@ $('#save-update').click(function (e){
      $('.table').append(studentBlock);
    };
 
+
+   function postFunc(){
+       $.post(url, data);
+   }
    let modal = $('#edit-modal');
-   $.post(url, data);
    modal.modal('hide');
 });
