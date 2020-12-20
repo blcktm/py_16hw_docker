@@ -16,6 +16,20 @@ from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
 
 
+@method_decorator(cache_page(2 * 60), 'get')
+class StudentsView(TemplateView):
+    template_name = "students.html"
+
+    def get_context_data(self, **kwargs):
+        self.request.session['refresh_count_students'] = self.request.session.get('refresh_count_students', 0) + 1
+        students = Student.objects.all()
+        return {
+            'form': StudentForm,
+            'students': students,
+            'refresh_count_students': self.request.session['refresh_count_students']
+        }
+
+
 @method_decorator(cache_page(10 * 60), 'get')
 class JsView(ListView):
     template_name = 'js_template.html'
@@ -72,19 +86,6 @@ class IndexView(TemplateView):
         }
 
         return context
-
-
-@method_decorator(cache_page(2 * 60), 'get')
-class StudentsView(TemplateView):
-    template_name = "students.html"
-
-    def get_context_data(self, **kwargs):
-        self.request.session['refresh_count_students'] = self.request.session.get('refresh_count_students', 0) + 1
-        students = Student.objects.all()
-        return {
-            'students': students,
-            'refresh_count_students': self.request.session['refresh_count_students']
-        }
 
 
 @method_decorator(cache_page(3 * 60), 'get')
