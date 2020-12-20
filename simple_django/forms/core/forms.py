@@ -1,5 +1,5 @@
 from django import forms
-from core.fields import PhoneField
+# from core.fields import PhoneField
 from core.models import Group, Student
 from django.contrib.auth import get_user_model
 
@@ -45,7 +45,7 @@ class GroupForm(forms.ModelForm):
 
 
 class StudentForm(forms.ModelForm):
-    phone = PhoneField()
+    # phone = PhoneField()
 
     class Meta:
         model = Student

@@ -1,15 +1,15 @@
 const studentsApiHtml = 'http://127.0.0.1:8000/api/v1/students/';
+const EDIT = 'edit-student-form';
+const CREATE = 'create-student-form';
+let modal = $('#edit-modal');
 
 $('body').on('click', '.del-btn', async function (e) {
    let id = $(this).data('id');
    await fetch(studentsApiHtml + id +'/', {
       method: 'DELETE'
    });
-
    $(this).closest('tr').remove()
 });
-
-let modal = $('#edit-modal');
 
 $('body').on('click', '.edit-btn', async function (e) {
    let id = $(this).data('id');
@@ -27,15 +27,13 @@ $('.create-btn').click(async function () {
 });
 
 $('#save-update').click(function (e){
-   const EDIT = 'edit-student-form';
-   const CREATE = 'create-student-form';
-
    let form = $('.form');
    let url = form.attr('action');
    let data = form.serializeArray();
    data.reverse();
-   
+
    $.post(url, data);
+
 
    if (form.attr('id') == EDIT) {
       let idstudent = form.attr('action').match(/\d+/)[0];
@@ -47,7 +45,6 @@ $('#save-update').click(function (e){
       };
 
    } else if (form.attr('id') == CREATE) {
-
        let id;
        let idFromTbl = (parseInt($('.table tr:last-child').children('td').first().text()) + 1);
 
@@ -63,10 +60,11 @@ $('#save-update').click(function (e){
                return idReturn;
            };
            id = getId();
-       } else id = idFromTbl;
+       } else {id = idFromTbl};
 
 
      let studentBlock = $('<tr>');
+     
      $('<td>').text(id).appendTo(studentBlock);
 
       for (let i=data.length-2; i>=0; i--){
@@ -77,10 +75,12 @@ $('#save-update').click(function (e){
            class: 'btn btn-danger del-btn',
            'data-id': id
        });
+
        let btnEdit = $(document.createElement('button')).text('Edit').attr({
            class: 'btn btn-primary edit-btn',
            'data-id': id
        });
+
        let tdBlock = $('<td>');
        tdBlock.append(btnDel);
        tdBlock.append(btnEdit);
@@ -89,7 +89,5 @@ $('#save-update').click(function (e){
      $('.table').append(studentBlock);
    };
 
-
-   let modal = $('#edit-modal');
    modal.modal('hide');
 });
