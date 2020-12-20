@@ -16,7 +16,6 @@ from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
 
 
-@method_decorator(cache_page(2 * 60), 'get')
 class StudentsView(TemplateView):
     template_name = "students.html"
 

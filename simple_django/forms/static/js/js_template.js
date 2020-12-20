@@ -34,7 +34,7 @@ $('#save-update').click(function (e){
    let url = form.attr('action');
    let data = form.serializeArray();
    data.reverse();
-
+   
    $.post(url, data);
 
    if (form.attr('id') == EDIT) {
