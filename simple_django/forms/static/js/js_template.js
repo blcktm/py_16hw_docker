@@ -35,8 +35,9 @@ $('#save-update').click(function (e){
    let data = form.serializeArray();
    data.reverse();
 
-   if (form.attr('id') == EDIT) {
+   $.post(url, data);
 
+   if (form.attr('id') == EDIT) {
       let idstudent = form.attr('action').match(/\d+/)[0];
       let btn = $('body').find('[data-id=' + idstudent + ']')
       let fields = btn.closest('td').prevAll();
@@ -45,14 +46,10 @@ $('#save-update').click(function (e){
           fields[i].innerText = data[i].value;
       };
 
-      postFunc();
-
    } else if (form.attr('id') == CREATE) {
 
        let id;
        let idFromTbl = (parseInt($('.table tr:last-child').children('td').first().text()) + 1);
-
-       postFunc();
 
        if (isNaN(idFromTbl)){
            function getId() {
@@ -93,9 +90,6 @@ $('#save-update').click(function (e){
    };
 
 
-   function postFunc(){
-       $.post(url, data);
-   }
    let modal = $('#edit-modal');
    modal.modal('hide');
 });
