@@ -1,4 +1,4 @@
-let studentsApiHtml = 'http://127.0.0.1:8000/api/v1/students/';
+const studentsApiHtml = 'http://127.0.0.1:8000/api/v1/students/';
 
 $('body').on('click', '.del-btn', async function (e) {
    let id = $(this).data('id');
