@@ -60,11 +60,11 @@ $('#save-update').click(function (e){
                return idReturn;
            };
            id = getId();
-       } else {id = idFromTbl};
+       } else id = idFromTbl;
 
 
      let studentBlock = $('<tr>');
-     
+
      $('<td>').text(id).appendTo(studentBlock);
 
       for (let i=data.length-2; i>=0; i--){
